@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'homePage.dart';
@@ -13,39 +11,40 @@ class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
-//  Future<LoginResponse> fetchAlbum(String email,String password) async {
-//   final response = await http.post(
-//     'https://www.roralabs.com/',
-//     headers: <String,String>{
-//       'Accept':'application/json',
-//     },
-//     body: {
-//       'email':email,
-//       'password':password,
-//     }
-//   );
-//   if (response.statusCode == 200) {
-//     print(response.body);
-//     return LoginResponse.fromJson(json.decode(response.body));
-//   } else {
-//     throw Exception('Failed to create album.');
-//   }
-// }
-// class LoginResponse {
+ Future<LoginResponse> login(String email,String password) async {
+  final response = await http.post(
+    'https://www.roralabs.com/login/token.php',
+    // headers: <String,String>{
+    //   'Accept':'application/json',
+    // },
+    body: {
+      'username':email,
+      'password':password,
+      'service':'moodle_mobile_app',
+    }
+  );
+  if (response.statusCode == 200) {
+    print(response.body);
+    return LoginResponse.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to create album.');
+  }
+}
+class LoginResponse {
   
-//   String email;
-//   String passsword;
-//   String token;
+  
+  String token;
+  String privatetoken;
 
-// LoginResponse({this.email, this.passsword});
+LoginResponse({this. token, this.privatetoken});
 
-//   LoginResponse.fromJson(Map<String, dynamic> json) {
-//     token = json['token'];
-//     email =  json['email'];
-//     passsword = json['password'];
+  LoginResponse.fromJson(Map<String, dynamic> json) {
+    token = json['token'];
+    privatetoken =  json['privatetoken'];
     
-//   }
-// }
+    
+  }
+}
 class _LoginPageState extends State<LoginPage> {
  //Future<LoginResponse> _futureJwt;
   TextEditingController emailController = new TextEditingController();
@@ -85,11 +84,27 @@ class _LoginPageState extends State<LoginPage> {
     };
     var jsonData = null;
    SharedPreferences sharedPreferences = await SharedPreferences.getInstance(); 
-    var response = await http.post("https://www.roralabs.com/",body: data);
+    //var response = await http.post("https://www.roralabs.com/",body: data);
 
-    if(response.statusCode == 200) {
-      jsonData = json.decode(response.body);
-      
+    // if(response.statusCode == 200) {
+    //   jsonData = json.decode(response.body);
+      final response = await http.post(
+    'https://www.roralabs.com/login/token.php',
+    // headers: <String,String>{
+    //   'Accept':'application/json',
+    // },
+    body: {
+      'username':email,
+      'password':password,
+      'service':'moodle_mobile_app',
+    }
+  );
+  if (response.statusCode == 200) {
+    print(response.body);
+    return LoginResponse.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to create album.');
+  }
       setState(() {
         isLoading = false;
     // sharedPreferences.setString("token", jsonData['token']);

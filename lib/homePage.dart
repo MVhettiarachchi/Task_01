@@ -8,7 +8,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-// SharedPreferences sharedPreferences;
+SharedPreferences sharedPreferences;
   @override
   void initState() {
     // TODO: implement initState
@@ -33,8 +33,8 @@ checkLoginStatus() async {
         title : Text("DgMentor", style: TextStyle(fontSize: 20, color: Colors.white70),),
       actions:<Widget>
        [IconButton(icon: Icon(Icons.logout), onPressed: (){
-        //sharedPreferences.clear();
-        //sharedPreferences.commit();
+      sharedPreferences.clear();
+       sharedPreferences.commit();
        }, 
        ),
        
