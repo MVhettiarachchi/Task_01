@@ -12,7 +12,6 @@ class LoginPage extends StatefulWidget {
 }
  Future<LoginResponse> login(String email,String password) async {
     
-   
 }
 
 
