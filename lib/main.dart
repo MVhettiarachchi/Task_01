@@ -22,26 +22,10 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    checkLoginStatus();
+   // checkLoginStatus();
   }
 
-  checkLoginStatus() async{
-    SharedPreferences preferences = await SharedPreferences.getInstance(); 
-      if(preferences.getString("token") == null){
-       Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
-          return LoginPage();
-        }));
-        print('test1');
-      }
-
-      else{
-        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
-          return HomePage();
-         
-        }));
-           print('test2');
-      }
-  }
+  
 
     @override
   Widget build(BuildContext context) {
