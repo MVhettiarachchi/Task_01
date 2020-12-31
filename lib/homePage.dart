@@ -18,22 +18,30 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    _initData();
+  }
+
+  void _initData(){
     _loading = true;
     Services.getCourse().then((course){
+      setState(() {
       _course = course;
       _loading = false;
+      });
+     
     });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title : Text(_loading ? "DgMentor" : "course", style: TextStyle(fontSize: 20, color: Colors.white70),),
+        title : Text("DgMentor", style: TextStyle(fontSize: 20, color: Colors.white70),),
 
       ),
       body: Container(
-        child: ListView.builder(
-          itemCount: _course.length== 0 ?0 : _course.length,
+        child: _loading ? CircularProgressIndicator() :         
+        ListView.builder(
+          itemCount: _course.length,
         itemBuilder: (context,position){
           Course course = _course[position];
           return ListTile(
