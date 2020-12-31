@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController userController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
-  bool isLoading;
+  bool isLoading = false;
  
       @override
       Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
           else{ 
     
               isLoading = false;
-             // sharedPreferences.setString("token", loginResponse.token);
+             //sharedPreferences.setString("token", loginResponse.token);
               Navigator.of(context).push(MaterialPageRoute(builder:(BuildContext context){
               return HomePage();
           }
@@ -163,7 +163,5 @@ class _LoginPageState extends State<LoginPage> {
          ),
         );
       }
-    
-      
 
 }
